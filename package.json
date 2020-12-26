@@ -1,0 +1,26 @@
+{
+  "name": "mongosha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "mongosha",
+    "mongodb",
+    "mongoose",
+    "quickmongo",
+    "fastmongo"
+  ],
+  "author": "Alosha & Fishuke",
+  "license": "GNU GPLv3",
+  "dependencies": {
+    "mongoose": "^5.11.8"
+  },
+  "homepage": "https://github.com/aloshai/mongosha/readme.md",
+  "bugs": {
+    "url": "https://github.com/aloshai/mongosha/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aloshai/mongosha"
+  }
+}
