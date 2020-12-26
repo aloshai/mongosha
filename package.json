@@ -1,14 +1,14 @@
 {
-  "name": "mongosha",
-  "version": "0.8.0",
+  "name": "mongosha2",
+  "version": "1.0.0",
   "description": "A fast, optimized and easy-to-use database manager. MongoDB has never been easier! Perfect for beginners!",
   "main": "index.js",
   "keywords": [
     "mongosha",
     "mongodb",
     "mongoose",
-    "quickmongo",
-    "fastmongo"
+    "quick mongo",
+    "mongo fast"
   ],
   "author": "Alosha & Fishuke",
   "license": "GNU GPLv3",
