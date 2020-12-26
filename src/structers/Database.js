@@ -1,4 +1,4 @@
-const Any = require("../schemas/EasyMongoSchema");
+const MongoshaSchema = require("../schemas/MongoshaSchema");
 const Serialize = require("../structers/Serialize");
 
 class Database {
@@ -13,11 +13,13 @@ class Database {
      * Set a value to the path you specify.
      * @param {String} path The path where the transaction will be made.
      * @param {any} value The value to be assigned to the path.
+     * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Object} If force is true, returns an object.
      */
-    async set(path, value){
+    async set(path, value, returnData = false){
         path = this.formatPath(path);
-        return Serialize.get(path, await Any.findOneAndUpdate({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        if(returnData) return Serialize.get(path, await MongoshaSchema.findOneAndUpdate({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        return await MongoshaSchema.updateOne({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).exec();
     }
 
     /**
@@ -26,7 +28,7 @@ class Database {
      */
     async get(path){
         path = this.formatPath(path);
-        let data = Serialize.get(path, await Any.findOne({Key: this.Name}, {_id: 0}).select(path).exec());
+        let data = Serialize.get(path, await MongoshaSchema.findOne({Key: this.Name}, {_id: 0}).select(path).exec());
         if(Object.keys(data).length == 0) return undefined;
         return data;
     }
@@ -35,11 +37,13 @@ class Database {
      * If the path you specify is an array, it pushes a value into the array.
      * @param {String} path The path where the transaction will be made.
      * @param {any} value The value to be pushed.
+     * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Array} If force is true, returns an updated array.
      */
-    async push(path, value){
+    async push(path, value, returnData = false){
         path = this.formatPath(path);
-        return Serialize.get(path, await Any.findOneAndUpdate({Key: this.Name}, {$push: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        if(returnData) return Serialize.get(path, await MongoshaSchema.findOneAndUpdate({Key: this.Name}, {$push: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        return await MongoshaSchema.updateOne({Key: this.Name}, {$push: {[path]: value}}, {upsert: true, new: true});
     }
 
     /**
@@ -49,7 +53,7 @@ class Database {
      */
     async has(path){
         path = this.formatPath(path);
-        return await Any.exists({Key: this.Name, [path]: {$exists: true}}).then((val) => val);
+        return await MongoshaSchema.exists({Key: this.Name, [path]: {$exists: true}}).then((val) => val);
     }
 
     /**
@@ -62,7 +66,7 @@ class Database {
         value = Number(value);
         if(isNaN(value)) throw "Invalid Number";
         path = this.formatPath(path);
-        return Serialize.get(path, await Any.findOneAndUpdate({Key: this.Name}, {$inc: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        return Serialize.get(path, await MongoshaSchema.findOneAndUpdate({Key: this.Name}, {$inc: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
     }
 
     /**
@@ -74,18 +78,20 @@ class Database {
         value = Number(value);
         if(isNaN(value)) throw "Invalid Number";
         path = this.formatPath(path);
-        return Serialize.get(path, (await Any.findOneAndUpdate({Key: this.Name}, {$inc: {[path]: -value}}, {upsert: true, new: true}).select(path).exec()));
+        return Serialize.get(path, (await MongoshaSchema.findOneAndUpdate({Key: this.Name}, {$inc: {[path]: -value}}, {upsert: true, new: true}).select(path).exec()));
     }
 
     /**
      * If the path you specified is an array, it will delete a value based on the query you specified.
      * @param {String} path The path where the transaction will be made.
      * @param {Object} query The value to be pushed.
+     * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Array} If force is true, returns an updated array.
      */
-    async pull(path, query){
+    async pull(path, query, returnData = false){
         path = this.formatPath(path);
-        return Serialize.get(path, (await Any.findOneAndUpdate({Key: this.Name}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec()));
+        if(returnData) return Serialize.get(path, (await MongoshaSchema.findOneAndUpdate({Key: this.Name}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec()));
+        return await MongoshaSchema.updateOne({Key: this.Name}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec();
     }
 
     /**
