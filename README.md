@@ -24,7 +24,7 @@ const db = new Database("General");
     * `.sub("servers.quality", 100)`
 * `.push(path, value, returnData?)`: Adds a new element to the array in the path you specified.
     * `.push("items", {name: "Sword", quality: 100})`
-* `.pull(path, query, returnData?)`: Subtracts an element from the array in the path you specified.
+* `.pull(path, query, returnData?)`: Return an element from the array in the path you specified.
     * `.pull("items", {name: "Sword"})`
     * `.pull("items", {quality: {$gte: 70}}, name: "Sword")`
 
