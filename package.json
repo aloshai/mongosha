@@ -1,7 +1,7 @@
 {
   "name": "mongosha",
   "version": "1.0.0",
-  "description": "Mongosha is a simple manager working with MongoDB. It is easy, convenient and optimized!",
+  "description": "A fast, optimized and easy-to-use database manager. MongoDB has never been easier! Perfect for beginners!",
   "main": "index.js",
   "keywords": [
     "mongosha",
@@ -15,7 +15,7 @@
   "dependencies": {
     "mongoose": "^5.11.8"
   },
-  "homepage": "https://github.com/aloshai/mongosha/readme.md",
+  "homepage": "https://github.com/aloshai/mongosha/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/aloshai/mongosha/issues"
   },
