@@ -9,7 +9,9 @@ Mongosha needs a link address as it is linked to MongoDB. In this case it is usi
 ### Database
 
 ```js
-const {Database} = require("@aloshai/mongosha");
+const {Database, DatabaseManager} = require("@aloshai/mongosha");
+DatabaseManager.connect("MONGODB_CONNECTION_STRING");
+
 const db = new Database("General");
 ```
 
