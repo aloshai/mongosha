@@ -4,12 +4,12 @@ Mongosha is a simple to use database manager. It allows you to do your transacti
 ## Usage
 Mongosha needs a link address as it is linked to MongoDB. In this case it is using 'DatabaseManager'.
 
-> to download the package `npm i mongosha` or `yarn install mongosha` 
+> to download the package `npm i @aloshai/mongosha` or `yarn install @aloshai/mongosha` 
 
 ### Database
 
 ```js
-const {Database} = require("mongosha");
+const {Database} = require("@aloshai/mongosha");
 const db = new Database("General");
 ```
 
@@ -32,7 +32,7 @@ const db = new Database("General");
 ### DatabaseManager
 
 ```js
-const {DatabaseManager} = require("mongosha");
+const {DatabaseManager} = require("@aloshai/mongosha");
 DatabaseManager.connect("MONGODB_CONNECTION_STRING");
 
 const db = DatabaseManager.getDatabases("General");
@@ -48,7 +48,7 @@ You can understand how it works by reading the examples below.
 You will see how we manage it by creating a database class and return values.
 
 ```js
-const {Database, DatabaseManager} = require("mongosha");
+const {Database, DatabaseManager} = require("@aloshai/mongosha");
 DatabaseManager.connect("MONGODB_CONNECTION_STRING"); // Local/Atlas Connection String
 
 const db = new Database("members"); // We are creating a new field
@@ -83,7 +83,7 @@ db.has("memb4r"); // => false
 It may be annoying to create classes constantly. In this case, you can use the class that is currently registered somewhere in memory.
 
 ```js
-const {DatabaseManager} = require("mongosha");
+const {DatabaseManager} = require("@aloshai/mongosha");
 
 DatabaseManager.connect("MONGODB_CONNECTION_STRING"); // Local/Atlas Connection String
 
@@ -100,7 +100,7 @@ userdb.set("user_2", {server: "EN_Server"});
 ```js
 const express = require("express");
 const app = express();
-const {DatabaseManager, Database} = require("mongosha");
+const {DatabaseManager, Database} = require("@aloshai/mongosha");
 
 const users = new Database("users");
 
@@ -123,7 +123,7 @@ app.listen(80, async () => {
 ```js
 const express = require("express");
 const app = express();
-const {DatabaseManager} = require("mongosha");
+const {DatabaseManager} = require("@aloshai/mongosha");
 
 const users = DatabaseManager.getDatabases("users");
 
