@@ -3,11 +3,13 @@ const Database = require("./structers/Database");
 
 class DatabaseManager {
     /**
+     * List of databases
      * @type {Array<Database>}
      */
     static #Databases = [];
 
     /**
+     * The address required to connect to Mongodb.
      * @param {String} connection 
      */
     static async connect(connection){
@@ -15,6 +17,7 @@ class DatabaseManager {
     }
 
     /**
+     * It searches a database with the name you specified, if it doesn't exist, it creates and saves it to the list.
      * @param {String} databaseName 
      * @returns {Database}
      */
@@ -23,6 +26,7 @@ class DatabaseManager {
     }
 
     /**
+     * Creates and saves a database.
      * @param {String} databaseName 
      * @returns {Database}
      */

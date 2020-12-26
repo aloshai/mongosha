@@ -10,8 +10,10 @@ class Database {
     }
 
     /**
-     * @param {String} path 
-     * @param {any} value 
+     * Set a value to the path you specify.
+     * @param {String} path The path where the transaction will be made.
+     * @param {any} value The value to be assigned to the path.
+     * @returns {Object} If force is true, returns an object.
      */
     async set(path, value){
         path = this.formatPath(path);
@@ -19,7 +21,8 @@ class Database {
     }
 
     /**
-     * @param {String} path 
+     * Returns value to you from the path you specified.
+     * @param {String} path The path where the transaction will be made.
      */
     async get(path){
         path = this.formatPath(path);
@@ -29,8 +32,10 @@ class Database {
     }
     
     /**
-     * @param {String} path 
-     * @param {any} value 
+     * If the path you specify is an array, it pushes a value into the array.
+     * @param {String} path The path where the transaction will be made.
+     * @param {any} value The value to be pushed.
+     * @returns {Array} If force is true, returns an updated array.
      */
     async push(path, value){
         path = this.formatPath(path);
@@ -38,7 +43,9 @@ class Database {
     }
 
     /**
-     * @param {String} path 
+     * It checks to see if the path you specified exists.
+     * @param {String} path The path where the transaction will be made.
+     * @returns {Boolean} true or false
      */
     async has(path){
         path = this.formatPath(path);
@@ -46,8 +53,10 @@ class Database {
     }
 
     /**
-     * @param {String} path 
-     * @param {Number} value
+     * Adds a numeric value in the path you specified.
+     * @param {String} path The path where the transaction will be made.
+     * @param {Number} value Value to add.
+     * @returns {Number} returns an updated value
      */
     async add(path, value){
         value = Number(value);
@@ -57,8 +66,9 @@ class Database {
     }
 
     /**
-     * @param {String} path 
-     * @param {Number} value
+     * @param {String} path The path where the transaction will be made.
+     * @param {Number} value Value to substract.
+     * @returns {Number} returns an updated value
      */
     async sub(path, value){
         value = Number(value);
@@ -68,8 +78,10 @@ class Database {
     }
 
     /**
-     * @param {Number} path 
-     * @param {Object} query 
+     * If the path you specified is an array, it will delete a value based on the query you specified.
+     * @param {String} path The path where the transaction will be made.
+     * @param {Object} query The value to be pushed.
+     * @returns {Array} If force is true, returns an updated array.
      */
     async pull(path, query){
         path = this.formatPath(path);

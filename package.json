@@ -1,7 +1,7 @@
 {
   "name": "mongosha",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mongosha is a simple manager working with MongoDB. It is easy, convenient and optimized!",
   "main": "index.js",
   "keywords": [
     "mongosha",

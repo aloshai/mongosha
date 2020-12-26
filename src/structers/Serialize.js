@@ -1,6 +1,5 @@
 class Serialize {
     /**
-     * 
      * @param {String} path 
      * @param {any} value 
      * @param {Object} obj 
