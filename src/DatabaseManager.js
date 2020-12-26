@@ -6,7 +6,7 @@ class DatabaseManager {
      * List of databases
      * @type {Array<Database>}
      */
-    static #Databases = [];
+    static Databases = [];
 
     /**
      * The address required to connect to Mongodb.
@@ -22,7 +22,7 @@ class DatabaseManager {
      * @returns {Database}
      */
     static getDatabase(databaseName){
-        return this.#Databases.find(database => database.Name == databaseName) || this.createDatabase(databaseName);
+        return this.Databases.find(database => database.Name == databaseName) || this.createDatabase(databaseName);
     }
 
     /**
@@ -32,7 +32,7 @@ class DatabaseManager {
      */
     static createDatabase(databaseName){
         let database = new Database(databaseName);
-        this.#Databases.push(database);
+        this.Databases.push(database);
         return database;
     }
 }
