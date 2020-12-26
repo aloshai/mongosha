@@ -91,4 +91,50 @@ userdb.set("user_1", {server: "TR_Server"});
 userdb.set("user_2", {server: "EN_Server"});
 ```
 
+## Template
+```js
+const express = require("express");
+const app = express();
+const {DatabaseManager, Database} = require("mongosha");
+
+const users = new Database("users");
+
+app.post("/create/:id/:name/:lastname", async (req, res) => {
+   await users.set(`${id}`, {name: req.params.name, lastname: req.params.lastname});
+   res.end();
+});
+
+app.get("/", async (req, res) => {
+   let data = await users.get();
+   res.send(data);
+});
+
+app.listen(80, async () => {
+   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
+})
+```
+
+## Template #2
+```js
+const express = require("express");
+const app = express();
+const {DatabaseManager} = require("mongosha");
+
+const users = DatabaseManager.getDatabases("users");
+
+app.post("/create/:id/:name/:lastname", async (req, res) => {
+   await users.set(`${id}`, {name: req.params.name, lastname: req.params.lastname});
+   res.end();
+});
+
+app.get("/", async (req, res) => {
+   let data = await users.get();
+   res.send(data);
+});
+
+app.listen(80, async () => {
+   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
+})
+```
+
 # `Discord Alosha#3779`
