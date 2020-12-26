@@ -90,3 +90,5 @@ let userdb = DatabaseManager.getDatabase("users"); // Returns any 'Database'
 userdb.set("user_1", {server: "TR_Server"});
 userdb.set("user_2", {server: "EN_Server"});
 ```
+
+# `Discord Alosha#3779`
