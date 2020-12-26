@@ -59,7 +59,9 @@ db.set("member", {lastname: "AHAAHA :d"}, true); // => {lastname: "AHAAHA :d"}
 
 // addition and subtraction to field
 db.add("member.price", 100, true); // => 100
-db.sub("member.price", 25); // => 75
+db.add("member.price", 100); // => Returns the result of the update query. 
+db.sub("member.price", 25, true); // => 75
+db.sub("member.price", 25); // => Returns the result of the update query.
 
 // Array Operations
 db.push("member.items", "Sword"); // => 
@@ -69,7 +71,7 @@ db.pull("member.items", "Shield", true); // => ["Sword"]
 db.pull("member.items", "Sword"); // => Returns the result of the update query.
 
 // Get Operation
-db.get("member"); // => {lastname: "AHAAHA :d", price: 75, items: []}
+db.get("member"); // => {lastname: "AHAAHA :d", price: 175, items: []}
 db.get("member.name"); // => undefined
 
 // Has Operation
