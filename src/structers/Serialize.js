@@ -1,8 +1,8 @@
 class Serialize {
     /**
-     * @param {String} path 
-     * @param {any} value 
-     * @param {Object} obj 
+     * @param {String} path
+     * @param {any} value
+     * @param {Object} obj
      */
     static set(path, value, obj = {}){
         let targets = path.split(".");
@@ -17,13 +17,13 @@ class Serialize {
     }
 
     /**
-     * @param {String} path 
-     * @param {Object} obj 
+     * @param {String} path
+     * @param {Object} obj
      */
     static get(path, obj = {}){
         let targets = path.split(".");
         let ref = obj;
-        let value = undefined;
+        let value;
 
         for (let index = 0; index < targets.length; index++) {
             const target = targets[index];

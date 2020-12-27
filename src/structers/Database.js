@@ -3,7 +3,7 @@ const Serialize = require("../structers/Serialize");
 
 class Database {
     /**
-     * @param {String} name 
+     * @param {String} name
      */
     constructor(name){
         this.Name = name;
@@ -19,7 +19,7 @@ class Database {
     async set(path, value, returnData = false){
         path = this.formatPath(path);
         if(returnData) return Serialize.get(path, await MongoshaSchema.findOneAndUpdate({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
-        return await MongoshaSchema.updateOne({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).exec();
+        return MongoshaSchema.updateOne({Key: this.Name}, {$set: {[path]: value}}, {upsert: true, new: true}).exec();
     }
 
     /**
@@ -29,10 +29,10 @@ class Database {
     async get(path){
         path = this.formatPath(path);
         let data = Serialize.get(path, await MongoshaSchema.findOne({Key: this.Name}, {_id: 0}).select(path).exec());
-        if(Object.keys(data).length == 0) return undefined;
+        if(Object.keys(data).length === 0) return undefined;
         return data;
     }
-    
+
     /**
      * If the path you specify is an array, it pushes a value into the array.
      * @param {String} path The path where the transaction will be made.
@@ -71,7 +71,7 @@ class Database {
 
     /**
      * @param {String} path The path where the transaction will be made.
-     * @param {Number} value Value to substract.
+     * @param {Number} value Value to subtract.
      * @returns {Number} returns an updated value
      */
     async sub(path, value){
@@ -91,11 +91,11 @@ class Database {
     async pull(path, query, returnData = false){
         path = this.formatPath(path);
         if(returnData) return Serialize.get(path, (await MongoshaSchema.findOneAndUpdate({Key: this.Name}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec()));
-        return await MongoshaSchema.updateOne({Key: this.Name}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec();
+        return MongoshaSchema.updateOne({Key: this.Name}, {$pull: {[path]: query}}, {upsert: true, new: true}).exec();
     }
 
     /**
-     * @param {String} str 
+     * @param {String} str
      */
     formatPath(str) {
         if(!str.length) str = "Value";
