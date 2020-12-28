@@ -19,19 +19,21 @@ class DatabaseManager {
     /**
      * It searches a database with the name you specified, if it doesn't exist, it creates and saves it to the list.
      * @param {String} databaseName
+     * @param {String} collectionName
      * @returns {Database}
      */
-    static getDatabase(databaseName){
-        return this.Databases.find(database => database.Name === databaseName) || this.createDatabase(databaseName);
+    static getDatabase(databaseName, collectionName = "mongosha"){
+        return this.Databases.find(database => database.Key === databaseName && database.Model.modelName == collectionName) || this.createDatabase(databaseName, collectionName);
     }
 
     /**
      * Creates and saves a database.
      * @param {String} databaseName
+     * @param {String} collectionName
      * @returns {Database}
      */
-    static createDatabase(databaseName){
-        let database = new Database(databaseName);
+    static createDatabase(databaseName, collectionName = undefined){
+        let database = new Database(databaseName, collectionName);
         this.Databases.push(database);
         return database;
     }
