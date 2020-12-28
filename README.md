@@ -9,10 +9,20 @@ Mongosha needs a link address as it is linked to MongoDB. In this case it is usi
 ### Database
 
 ```js
+class Database(name, collectionName?);
+```
+* `name`: is the key word. You have to write this in order to access the data.
+* `collectionName`: If you don't want it to occur in the mongosha collection, you can name it a different collection.
+
+#### Example Usage
+
+```js
 const {Database, DatabaseManager} = require("@aloshai/mongosha");
 DatabaseManager.connect("MONGODB_CONNECTION_STRING");
 
-const db = new Database("General");
+const dbUsers = new Database("users");
+const dbCoins = new Database("coins", "market"); // The second parameter is your collection name. The default name is mongosha.
+
 ```
 
 **If the `returnData` param is true, it returns the updated data. If not, it returns the Update Query result.**
@@ -29,6 +39,7 @@ const db = new Database("General");
 * `.pull(path, query, returnData?)`: Return an element from the array in the path you specified.
     * `.pull("items", {name: "Sword"})`
     * `.pull("items", {quality: {$gte: 70}}, name: "Sword")`
+* `.delete(path)`: Deletes the path you specified directly.
 
 
 ### DatabaseManager
@@ -37,11 +48,11 @@ const db = new Database("General");
 const {DatabaseManager} = require("@aloshai/mongosha");
 DatabaseManager.connect("MONGODB_CONNECTION_STRING");
 
-const db = DatabaseManager.getDatabases("General");
+const db = DatabaseManager.getDatabase("General");
 ```
 * `.connect(connectionString)`: The address required to connect to mongodb.
-* `.getDatabases(databaseName)`: It searches a database with the name you specified, if it doesn't exist, it creates and saves it to the list.
-* `.createDatabase(databaseName)`: Creates and saves a database.
+* `.getDatabase(databaseName, collectionName?)`: It searches a database with the name you specified, if it doesn't exist, it creates and saves it to the list.
+* `.createDatabase(databaseName, collectionName?)`: Creates and saves a database.
 
 ## QuickStart
 You can understand how it works by reading the examples below.
@@ -79,6 +90,9 @@ db.get("member.name"); // => undefined
 // Has Operation
 db.has("member"); // => true
 db.has("memb4r"); // => false
+
+// Delete Operation
+db.delete("member");
 ```
 
 ## Example #2
@@ -89,11 +103,11 @@ const {DatabaseManager} = require("@aloshai/mongosha");
 
 DatabaseManager.connect("MONGODB_CONNECTION_STRING"); // Local/Atlas Connection String
 
-let serverdb = DatabaseManager.getDatabase("servers"); // Returns any 'Database'
+let serverdb = DatabaseManager.getDatabase("servers_data", "servers"); // Returns the 'servers' in the servers collection.
 serverdb.set("TR_Server", {region: "Asia"});
 serverdb.set("EN_Server", {region: "Europe"});
 
-let userdb = DatabaseManager.getDatabase("users"); // Returns any 'Database'
+let userdb = DatabaseManager.getDatabase("users"); // Returns the 'mongosha' in the Mongosha collection.
 userdb.set("user_1", {server: "TR_Server"});
 userdb.set("user_2", {server: "EN_Server"});
 ```
@@ -107,12 +121,12 @@ const {DatabaseManager, Database} = require("@aloshai/mongosha");
 const users = new Database("users");
 
 app.post("/create/:id/:name/:lastname", async (req, res) => {
-   await users.set(`${id}`, {name: req.params.name, lastname: req.params.lastname});
+   await users.set(`${req.params.id}`, {name: req.params.name, lastname: req.params.lastname});
    res.end();
 });
 
-app.get("/", async (req, res) => {
-   let data = await users.get();
+app.get("/:id", async (req, res) => {
+   let data = await users.get(req.params.id);
    res.send(data);
 });
 
@@ -127,21 +141,43 @@ const express = require("express");
 const app = express();
 const {DatabaseManager} = require("@aloshai/mongosha");
 
-const users = DatabaseManager.getDatabases("users");
+const users = DatabaseManager.getDatabase("users");
 
 app.post("/create/:id/:name/:lastname", async (req, res) => {
-   await users.set(`${id}`, {name: req.params.name, lastname: req.params.lastname});
+   await users.set(`${req.params.id}`, {name: req.params.name, lastname: req.params.lastname});
    res.end();
 });
 
-app.get("/", async (req, res) => {
-   let data = await users.get();
+app.get("/:id", async (req, res) => {
+   let data = await users.get(`${req.params.id}`);
    res.send(data);
 });
 
 app.listen(80, async () => {
    DatabaseManager.connect("MONGODB_CONNECTION_STRING");
 })
+```
+
+## Template #3
+```js
+const express = require("express");
+const app = express();
+const {DatabaseManager} = require("@aloshai/mongosha");
+
+app.post("/add/book/:id/:bookid", async (req, res) => {
+    let db = new Database(req.params.id, "users");
+    db.push("items", req.params.bookid);
+});
+
+app.get("/:id", async (req, res) => {
+   let db = new Database(req.params.id, "users");
+   let data = await db.get("items");
+   res.send(data);
+});
+
+app.listen(80, async () => {
+   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
+});
 ```
 
 # `Discord Alosha#3779`
