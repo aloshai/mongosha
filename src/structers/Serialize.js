@@ -28,6 +28,10 @@ class Serialize {
         for (let index = 0; index < targets.length; index++) {
             const target = String(targets[index]);
             if(ref[target]) ref = ref[target];
+            else {
+                ref = undefined;
+                break;
+            }
         }
         value = ref;
         return value;
