@@ -26,7 +26,7 @@ class Serialize {
         let value;
 
         for (let index = 0; index < targets.length; index++) {
-            const target = String(targets[index]);
+            const target = targets[index];
             if(ref[target]) ref = ref[target];
             else {
                 ref = undefined;
