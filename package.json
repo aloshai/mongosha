@@ -1,6 +1,6 @@
 {
   "name": "@aloshai/mongosha",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A fast, optimized and easy-to-use database manager. MongoDB has never been easier! Perfect for beginners!",
   "main": "index.js",
   "keywords": [
@@ -11,7 +11,7 @@
     "mongo fast"
   ],
   "author": "Alosha & Fishuke",
-  "license": "GNU GPLv3",
+  "license": "MIT",
   "dependencies": {
     "mongoose": "^5.11.8"
   },
@@ -21,6 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aloshai/mongosha"
+    "url": "git+https://github.com/aloshai/mongosha.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
