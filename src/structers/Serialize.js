@@ -21,6 +21,7 @@ class Serialize {
      * @param {Object} obj
      */
     static get(path, obj = {}){
+        if(!obj || (obj && obj == null)) return undefined;
         let targets = path.split(".");
         let ref = obj;
         let value;

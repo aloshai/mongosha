@@ -1,6 +1,6 @@
 {
   "name": "@aloshai/mongosha",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A fast, optimized and easy-to-use database manager. MongoDB has never been easier! Perfect for beginners!",
   "main": "index.js",
   "keywords": [
