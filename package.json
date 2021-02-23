@@ -1,6 +1,6 @@
 {
   "name": "@aloshai/mongosha",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A fast, optimized and easy-to-use database manager. MongoDB has never been easier! Perfect for beginners!",
   "main": "index.js",
   "keywords": [
@@ -8,13 +8,12 @@
     "mongodb",
     "mongoose",
     "quick mongo",
-    "mongo fast"
+    "mongo fast",
+    "fastmongo",
+    "easy-to-use"
   ],
   "author": "Alosha & Fishuke",
   "license": "MIT",
-  "dependencies": {
-    "mongoose": "^5.11.8"
-  },
   "homepage": "https://github.com/aloshai/mongosha/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/aloshai/mongosha/issues"
@@ -23,8 +22,10 @@
     "type": "git",
     "url": "git+https://github.com/aloshai/mongosha.git"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mongoose": "^5.11.15"
   }
 }

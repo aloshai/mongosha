@@ -6,7 +6,7 @@ class Database {
     /**
      * @param {String} name
      */
-    constructor(name, collectionName = undefined){
+    constructor(name, collectionName = undefined) {
         this.Key = name;
         this.Model = collectionName ? MongoshaModel.newModel(collectionName) : MongoshaModel.model;
     }
@@ -18,19 +18,19 @@ class Database {
      * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Object} If force is true, returns an object.
      */
-    async set(path, value, returnData = false){
+    async set(path, value, returnData = false) {
         path = this.formatPath(path);
-        if(returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({Key: this.Key}, {$set: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
-        return this.Model.updateOne({Key: this.Key}, {$set: {[path]: value}}, {upsert: true, new: true}).exec();
+        if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $set: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
+        return this.Model.updateOne({ Key: this.Key }, { $set: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
     /**
      * Returns value to you from the path you specified.
      * @param {String} path The path where the transaction will be made.
      */
-    async get(path){
+    async get(path) {
         path = this.formatPath(path);
-        let data = Serialize.get(path, await this.Model.findOne({Key: this.Key}, {_id: 0}).select(path).exec());
+        let data = Serialize.get(path, await this.Model.findOne({ Key: this.Key }, { _id: 0 }).select(path).exec());
         return data;
     }
 
@@ -41,10 +41,10 @@ class Database {
      * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Array} If force is true, returns an updated array.
      */
-    async push(path, value, returnData = false){
+    async push(path, value, returnData = false) {
         path = this.formatPath(path);
-        if(returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({Key: this.Key}, {$push: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
-        return await this.Model.updateOne({Key: this.Key}, {$push: {[path]: value}}, {upsert: true, new: true});
+        if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
+        return await this.Model.updateOne({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true });
     }
 
     /**
@@ -54,11 +54,11 @@ class Database {
      * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Array} If force is true, returns an updated array.
      */
-    async pull(path, query, returnData = false){
-        if(Array.isArray(query)) query = [query];
+    async pull(path, query, returnData = false) {
+        if (Array.isArray(query)) query = [query];
         path = this.formatPath(path);
-        if(returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({Key: this.Key}, { $pull: { [path]: query } }, {upsert: true, new: true}).exec()));
-        return this.Model.updateOne({Key: this.Key}, {$pull: {[path]: query}}, {upsert: true, new: true}).exec();
+        if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pull: { [path]: query } }, { upsert: true, new: true }).exec()));
+        return this.Model.updateOne({ Key: this.Key }, { $pull: { [path]: query } }, { upsert: true, new: true }).exec();
     }
 
     /**
@@ -66,9 +66,9 @@ class Database {
      * @param {String} path The path where the transaction will be made.
      * @returns {Boolean} true or false
      */
-    async has(path){
+    async has(path) {
         path = this.formatPath(path);
-        return await this.Model.exists({Key: this.Key, [path]: {$exists: true}}).then((val) => val);
+        return await this.Model.exists({ Key: this.Key, [path]: { $exists: true } }).then((val) => val);
     }
 
     /**
@@ -77,11 +77,11 @@ class Database {
      * @param {Number} value Value to add.
      * @returns {Number} returns an updated value
      */
-    async add(path, value){
+    async add(path, value) {
         value = Number(value);
-        if(isNaN(value)) throw "Invalid Number";
+        if (isNaN(value)) throw "Invalid Number";
         path = this.formatPath(path);
-        return Serialize.get(path, await this.Model.findOneAndUpdate({Key: this.Key}, {$inc: {[path]: value}}, {upsert: true, new: true}).select(path).exec());
+        return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $inc: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
     }
 
     /**
@@ -89,11 +89,11 @@ class Database {
      * @param {Number} value Value to subtract.
      * @returns {Number} returns an updated value
      */
-    async sub(path, value){
+    async sub(path, value) {
         value = Number(value);
-        if(isNaN(value)) throw "Invalid Number";
+        if (isNaN(value)) throw "Invalid Number";
         path = this.formatPath(path);
-        return Serialize.get(path, (await this.Model.findOneAndUpdate({Key: this.Key}, {$inc: {[path]: -value}}, {upsert: true, new: true}).select(path).exec()));
+        return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $inc: { [path]: -value } }, { upsert: true, new: true }).select(path).exec()));
     }
 
 
@@ -101,16 +101,16 @@ class Database {
      * Unset the data in the path you specified.
      * @param {String} path The path where the transaction will be made.
      */
-    async delete(path){
+    async delete(path) {
         path = this.formatPath(path);
-        return await this.Model.updateOne({Key: this.Key}, {$unset: {[path]: 1}}, {upsert: true}).exec();
+        return await this.Model.updateOne({ Key: this.Key }, { $unset: { [path]: 1 } }, { upsert: true }).exec();
     }
 
     /**
      * @param {String} str
      */
     formatPath(str) {
-        if(!str.length) str = "Value";
+        if (!str.length) str = "Value";
         else str = `Value.${str}`;
         return str;
     }

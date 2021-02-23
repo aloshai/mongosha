@@ -1,4 +1,4 @@
-const {model, Schema, Model} = require("mongoose");
+const { model, Schema, Model } = require("mongoose");
 
 const schema = new Schema({
     Key: String,
@@ -11,7 +11,7 @@ const _model = model("mongosha", schema);
  * @param {String} modelName
  * @returns {Model} 
  */
-function createModel(modelName){
+function createModel(modelName) {
     return model(modelName, schema);
 }
-module.exports = {model: _model, newModel: createModel};
+module.exports = { model: _model, newModel: createModel };
