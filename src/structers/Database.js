@@ -44,7 +44,7 @@ class Database {
     async push(path, value, returnData = false) {
         path = this.formatPath(path);
         if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
-        return await this.Model.updateOne({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true });
+        return this.Model.updateOne({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
     /**
@@ -68,7 +68,7 @@ class Database {
      */
     async has(path) {
         path = this.formatPath(path);
-        return await this.Model.exists({ Key: this.Key, [path]: { $exists: true } }).then((val) => val);
+        return this.Model.exists({ Key: this.Key, [path]: { $exists: true } }).exec();
     }
 
     /**
@@ -103,7 +103,7 @@ class Database {
      */
     async delete(path) {
         path = this.formatPath(path);
-        return await this.Model.updateOne({ Key: this.Key }, { $unset: { [path]: 1 } }, { upsert: true }).exec();
+        return this.Model.updateOne({ Key: this.Key }, { $unset: { [path]: 1 } }, { upsert: true }).exec();
     }
 
     /**
