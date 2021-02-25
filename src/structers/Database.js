@@ -68,7 +68,7 @@ class Database {
      */
     async has(path) {
         path = this.formatPath(path);
-        return this.Model.exists({ Key: this.Key, [path]: { $exists: true } }).exec();
+        return this.Model.exists({ Key: this.Key, [path]: { $exists: true } });
     }
 
     /**
