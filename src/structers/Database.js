@@ -46,18 +46,31 @@ class Database {
         return this.Model.updateOne({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
+    async pushRange(path, value, returnData = false) {
+        path = this.formatPath(path);
+        if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $push: { [path]: { $each: value } } }, { upsert: true, new: true }).select(path).exec());
+        return this.Model.updateOne({ Key: this.Key }, { $push: { [path]: { $each: value } } }, { upsert: true, new: true }).exec();
+    }
+
     /**
      * If the path you specified is an array, it will delete a value based on the query you specified.
      * @param {String} path The path where the transaction will be made.
-     * @param {Object} query The value to be pushed.
+     * @param {Object} value The value to be pushed.
      * @param {boolean} returnData Return the data in the field you updated?
      * @returns {Array} If force is true, returns an updated array.
      */
-    async pull(path, query, returnData = false) {
-        if (Array.isArray(query)) query = [query];
+    async pull(path, value, returnData = false) {
+        if (Array.isArray(value)) value = [value];
         path = this.formatPath(path);
-        if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pull: { [path]: query } }, { upsert: true, new: true }).exec()));
-        return this.Model.updateOne({ Key: this.Key }, { $pull: { [path]: query } }, { upsert: true, new: true }).exec();
+        if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pull: { [path]: value } }, { upsert: true, new: true }).exec()));
+        return this.Model.updateOne({ Key: this.Key }, { $pull: { [path]: value } }, { upsert: true, new: true }).exec();
+    }
+
+    async pullAll(path, value, returnData) {
+        if (Array.isArray(value)) value = [value];
+        path = this.formatPath(path);
+        if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pullAll: { [path]: value } }, { upsert: true, new: true }).exec()));
+        return this.Model.updateOne({ Key: this.Key }, { $pullAll: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
     /**
