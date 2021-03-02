@@ -179,5 +179,3 @@ app.listen(80, async () => {
    DatabaseManager.connect("MONGODB_CONNECTION_STRING");
 });
 ```
-
-# `Discord Alosha#3779`
