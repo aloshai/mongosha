@@ -1,6 +1,15 @@
 const MongoshaModel = require("../models/MongoshaModel");
 const Serialize = require("../structers/Serialize");
 
+/**
+ * @param {String} str
+ */
+function FormatPath(str) {
+    if (!str.length) str = "Value";
+    else str = `Value.${str}`;
+    return str;
+}
+
 class Database {
     /**
      * @param {String} name
@@ -18,7 +27,7 @@ class Database {
      * @returns {Object} If force is true, returns an object.
      */
     async set(path, value, returnData = false) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $set: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
         return this.Model.updateOne({ Key: this.Key }, { $set: { [path]: value } }, { upsert: true, new: true }).exec();
     }
@@ -28,7 +37,7 @@ class Database {
      * @param {String} path The path where the transaction will be made.
      */
     async get(path) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         let data = Serialize.get(path, await this.Model.findOne({ Key: this.Key }, { _id: 0 }).select(path).exec());
         return data;
     }
@@ -41,13 +50,13 @@ class Database {
      * @returns {Array} If force is true, returns an updated array.
      */
     async push(path, value, returnData = false) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
         return this.Model.updateOne({ Key: this.Key }, { $push: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
     async pushRange(path, value, returnData = false) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         if (returnData) return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $push: { [path]: { $each: value } } }, { upsert: true, new: true }).select(path).exec());
         return this.Model.updateOne({ Key: this.Key }, { $push: { [path]: { $each: value } } }, { upsert: true, new: true }).exec();
     }
@@ -61,14 +70,14 @@ class Database {
      */
     async pull(path, value, returnData = false) {
         if (Array.isArray(value)) value = [value];
-        path = this.formatPath(path);
+        path = FormatPath(path);
         if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pull: { [path]: value } }, { upsert: true, new: true }).exec()));
         return this.Model.updateOne({ Key: this.Key }, { $pull: { [path]: value } }, { upsert: true, new: true }).exec();
     }
 
     async pullAll(path, value, returnData) {
         if (Array.isArray(value)) value = [value];
-        path = this.formatPath(path);
+        path = FormatPath(path);
         if (returnData) return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $pullAll: { [path]: value } }, { upsert: true, new: true }).exec()));
         return this.Model.updateOne({ Key: this.Key }, { $pullAll: { [path]: value } }, { upsert: true, new: true }).exec();
     }
@@ -79,7 +88,7 @@ class Database {
      * @returns {Boolean} true or false
      */
     async has(path) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         return this.Model.exists({ Key: this.Key, [path]: { $exists: true } });
     }
 
@@ -92,7 +101,7 @@ class Database {
     async add(path, value) {
         value = Number(value);
         if (isNaN(value)) throw "Invalid Number";
-        path = this.formatPath(path);
+        path = FormatPath(path);
         return Serialize.get(path, await this.Model.findOneAndUpdate({ Key: this.Key }, { $inc: { [path]: value } }, { upsert: true, new: true }).select(path).exec());
     }
 
@@ -104,7 +113,7 @@ class Database {
     async sub(path, value) {
         value = Number(value);
         if (isNaN(value)) throw "Invalid Number";
-        path = this.formatPath(path);
+        path = FormatPath(path);
         return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $inc: { [path]: -value } }, { upsert: true, new: true }).select(path).exec()));
     }
 
@@ -114,18 +123,10 @@ class Database {
      * @param {String} path The path where the transaction will be made.
      */
     async delete(path) {
-        path = this.formatPath(path);
+        path = FormatPath(path);
         return this.Model.updateOne({ Key: this.Key }, { $unset: { [path]: 1 } }, { upsert: true }).exec();
     }
 
-    /**
-     * @param {String} str
-     */
-    formatPath(str) {
-        if (!str.length) str = "Value";
-        else str = `Value.${str}`;
-        return str;
-    }
 }
 
 module.exports = Database;
