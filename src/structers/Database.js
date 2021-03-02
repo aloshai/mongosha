@@ -1,4 +1,3 @@
-const mongodb = require("mongodb");
 const MongoshaModel = require("../models/MongoshaModel");
 const Serialize = require("../structers/Serialize");
 
