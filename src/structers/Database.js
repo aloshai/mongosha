@@ -117,7 +117,6 @@ class Database {
         return Serialize.get(path, (await this.Model.findOneAndUpdate({ Key: this.Key }, { $inc: { [path]: -value } }, { upsert: true, new: true }).select(path).exec()));
     }
 
-
     /**
      * Unset the data in the path you specified.
      * @param {String} path The path where the transaction will be made.
