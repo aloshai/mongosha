@@ -40,7 +40,9 @@ const dbCoins = new Database("coins", "market"); // The second parameter is your
     * `.pull("items", {name: "Sword"})`
     * `.pull("items", {quality: {$gte: 70}}, name: "Sword")`
 * `.delete(path)`: Deletes the path you specified directly.
-
+* `.pullAll(path, value, returnData?)`: Pulls all elements of the value you specify from the Array.
+* `.pushRange(path, array, returnData?)`: Inserts an array element from another array.
+    * `.pushRange("items", ["Sword", "Shield"])`
 
 ### DatabaseManager
 
