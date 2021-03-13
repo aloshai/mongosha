@@ -63,121 +63,40 @@ You can understand how it works by reading the examples below.
 You will see how we manage it by creating a database class and return values.
 
 ```js
-const {Database, DatabaseManager} = require("@aloshai/mongosha");
-DatabaseManager.connect("MONGODB_CONNECTION_STRING"); // Local/Atlas Connection String
+const { Manager } = require("@aloshai/mongosha");
 
-const db = new Database("members"); // We are creating a new field
+const client = Manager.connect("MONGODB_CONNECTION_STRING");
+const db = client.database("example_database");
 
-// Set Operation
-db.set("member", {name: "Mert", lastname: "Yılmaz"}); // => Returns the result of the update query. 
-db.set("member", {lastname: "AHAAHA :d"}, true); // => {lastname: "AHAAHA :d"}
+const collection = db.collection("users");
+const data = collection.data("user_id_0");
 
-// addition and subtraction to field
-db.add("member.price", 100, true); // => 100
-db.add("member.price", 100); // => Returns the result of the update query. 
-db.sub("member.price", 25, true); // => 75
-db.sub("member.price", 25); // => Returns the result of the update query.
+// set and delete
+data.set("identify", { "name": "Mert", "surname": "Yılmaz" }); // => { "name": "Mert", "surname": "Yılmaz" }
+data.set("wallet", { price: 1500 }); // => { price: 1500 }
+data.set("adress", "Europe/Istanbul"); // => "Europe/Istanbul"
+data.set("mail", "aloshai@aloshai.com"); // => "aloshai@aloshai.com"
 
-// Array Operations
-db.push("member.items", "Sword"); // => 
-db.push("member.items", "Shield", true); // => ["Sword", "Shield"]
+data.delete("mail"); // => Promise<void>
 
-db.pull("member.items", "Shield", true); // => ["Sword"]
-db.pull("member.items", "Sword"); // => Returns the result of the update query.
+// addition and subtraction 
+data.add("wallet", 10); // => 1510
+data.sub("wallet", 1000); // => 510
 
-// Get Operation
-db.get("member"); // => {lastname: "AHAAHA :d", price: 175, items: []}
-db.get("member.name"); // => undefined
+// array operations
+data.push("inventory", "Sword"); // => "Sword"
+data.pushRange("inventory", ["Shield", "Gum", "Gum", "Phone"]); // => ["Shield", "Gum", "Gum", "Phone"]
+data.pushRange("favorite_numbers", [1, 2, 3, 4, 10, 5, 30, 6, 10]);
 
-// Has Operation
-db.has("member"); // => true
-db.has("memb4r"); // => false
+data.pull("inventory", "Sword"); // Promise<void>
+data.pullAll("inventory", "Gum"); // Promise<void>
 
-// Delete Operation
-db.delete("member");
-```
+// sort
+data.sort("favorite_numbers", "ASC"); // => [1, 2, 3, 4, 5, 6, 10, 10, 30]
+data.sort("favorite_numbers", "DESC"); // => [30, 10, 10, 6, 5, 4, 3, 2, 1]
 
-## Example #2
-It may be annoying to create classes constantly. In this case, you can use the class that is currently registered somewhere in memory.
-
-```js
-const {DatabaseManager} = require("@aloshai/mongosha");
-
-DatabaseManager.connect("MONGODB_CONNECTION_STRING"); // Local/Atlas Connection String
-
-let serverdb = DatabaseManager.getDatabase("servers_data", "servers"); // Returns the 'servers' in the servers collection.
-serverdb.set("TR_Server", {region: "Asia"});
-serverdb.set("EN_Server", {region: "Europe"});
-
-let userdb = DatabaseManager.getDatabase("users"); // Returns the 'mongosha' in the Mongosha collection.
-userdb.set("user_1", {server: "TR_Server"});
-userdb.set("user_2", {server: "EN_Server"});
-```
-
-## Template
-```js
-const express = require("express");
-const app = express();
-const {DatabaseManager, Database} = require("@aloshai/mongosha");
-
-const users = new Database("users");
-
-app.post("/create/:id/:name/:lastname", async (req, res) => {
-   await users.set(`${req.params.id}`, {name: req.params.name, lastname: req.params.lastname});
-   res.end();
-});
-
-app.get("/:id", async (req, res) => {
-   let data = await users.get(req.params.id);
-   res.send(data);
-});
-
-app.listen(80, async () => {
-   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
-})
-```
-
-## Template #2
-```js
-const express = require("express");
-const app = express();
-const {DatabaseManager} = require("@aloshai/mongosha");
-
-const users = DatabaseManager.getDatabase("users");
-
-app.post("/create/:id/:name/:lastname", async (req, res) => {
-   await users.set(`${req.params.id}`, {name: req.params.name, lastname: req.params.lastname});
-   res.end();
-});
-
-app.get("/:id", async (req, res) => {
-   let data = await users.get(`${req.params.id}`);
-   res.send(data);
-});
-
-app.listen(80, async () => {
-   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
-})
-```
-
-## Template #3
-```js
-const express = require("express");
-const app = express();
-const {DatabaseManager} = require("@aloshai/mongosha");
-
-app.post("/add/book/:id/:bookid", async (req, res) => {
-    let db = new Database(req.params.id, "users");
-    db.push("items", req.params.bookid);
-});
-
-app.get("/:id", async (req, res) => {
-   let db = new Database(req.params.id, "users");
-   let data = await db.get("items");
-   res.send(data);
-});
-
-app.listen(80, async () => {
-   DatabaseManager.connect("MONGODB_CONNECTION_STRING");
-});
+// has path any value?
+data.has("wallet"); // => true
+data.has("mail"); // => false
+data.has("otherField"); // => false
 ```

@@ -1,8 +1,5 @@
 const mongodb = require("mongodb");
-
-function formatPath(str) {
-    return "data." + str;
-}
+const PathFormat = require("../tools/FormatTool");
 
 class Data {
     /**
@@ -31,7 +28,7 @@ class Data {
      * @returns any 
      */
     async set(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $set: { [path]: value } }, { upsert: true });
         return value;
@@ -41,7 +38,7 @@ class Data {
      * @param {String} path 
      */
     async get(path) { // TODO: defaultValue
-        path = formatPath(path);
+        path = PathFormat(path);
 
         const data = await this.#collection.findOne({ key: this.#key }, {
             projection: {
@@ -53,7 +50,7 @@ class Data {
     }
 
     async sort(path, orderType) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         let pipelines = [
             {
@@ -86,7 +83,7 @@ class Data {
      * @returns {any}
      */
     async add(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         const data = await this.#collection.findOneAndUpdate({ key: this.#key }, { $inc: { [path]: value } }, {
             projection: {
@@ -105,7 +102,7 @@ class Data {
      * @returns {any}
      */
     async sub(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         const data = await this.#collection.findOneAndUpdate({ key: this.#key }, { $inc: { [path]: -Math.abs(value) } }, {
             projection: {
@@ -123,7 +120,7 @@ class Data {
      * @returns {Boolean}
      */
     async has(path) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         const count = await this.#collection.find({ key: this.#key, [path]: { $exists: true } }).limit(1).count();
 
@@ -137,7 +134,7 @@ class Data {
      * @returns any
      */
     async push(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $push: { [path]: value } }, { upsert: true });
 
@@ -152,7 +149,7 @@ class Data {
      * @returns any
      */
     async pull(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $pull: { [path]: value } }, { upsert: true });
     }
@@ -164,7 +161,7 @@ class Data {
      * @returns any
      */
     async pullAll(path, value) {
-        path = formatPath(path);
+        path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $pullAll: { [path]: value } }, { upsert: true });
     }
