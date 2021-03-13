@@ -1,9 +1,5 @@
-const DatabaseManager = require("./src/DatabaseManager");
-const Database = require("./src/structers/Database");
-const MongoshaModel = require("./src/models/MongoshaModel");
+const { Manager } = require("./src/Manager");
 
 module.exports = {
-    DatabaseManager,
-    Database,
-    MongoshaModel
+    Manager
 };
