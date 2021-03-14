@@ -29,6 +29,7 @@ class Database {
      */
     collection(collectionName) {
         let dbCollection = this.Db.collection(collectionName);
+        dbCollection.createIndex({ key: 1 });
         let collection = new Collection(dbCollection);
 
         return collection;
