@@ -1,5 +1,3 @@
-const { Manager } = require("./src/Manager");
+const mongosha = require("./src/index");
 
-module.exports = {
-    Manager
-};
+module.exports = mongosha;

@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const Database = require("./Database");
+const Database = require("../structers/Database");
 
 class Client {
     /**
@@ -20,8 +20,12 @@ class Client {
      * @returns {Database} 
      */
     database(databaseName) {
-        var database = new Database(this.client, databaseName);
+        let database = new Database(this.client, databaseName);
         return database;
+    }
+
+    async dropDatabase(databaseName) {
+        await this.client.db(databaseName).dropDatabase();
     }
 }
 

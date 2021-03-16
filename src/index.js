@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
-const Client = require('./structers/Client');
+const Client = require('./client/Client');
 
-class Manager {
+class Mongosha {
     /**
      * @param {String} url 
      * @param {mongodb.MongoClientOptions} options 
@@ -15,6 +15,4 @@ class Manager {
     }
 }
 
-module.exports = {
-    Manager
-};
+module.exports = Mongosha;
