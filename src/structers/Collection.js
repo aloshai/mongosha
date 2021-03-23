@@ -5,13 +5,13 @@ class Collection {
     /**
      * @type {mongodb.Collection}
      */
-    collection;
+    Collection;
 
     /**
      * @param {mongodb.Collection} client 
      */
     constructor(collection) {
-        this.collection = collection;
+        this.Collection = collection;
     }
 
     /**
@@ -20,7 +20,7 @@ class Collection {
      * @returns {Data} 
      */
     data(key) {
-        return new Data(key, this.collection);
+        return new Data(key, this.Collection);
     }
 
     /**
@@ -29,7 +29,7 @@ class Collection {
      * @returns {Data} 
      */
     CreateData(key) {
-        return new Data(key, this.collection);
+        return new Data(key, this.Collection);
     }
 
     /**
@@ -39,9 +39,9 @@ class Collection {
      * @param {number} limit
      * @returns {Array<any>}
      */
-    async sort(path, orderType, limit = 0) {
+    async Sort(path, orderType, limit = 0) {
         const order = orderType == "DESC" ? -1 : 1;
-        const data = await this.collection.find({ [path]: { $exists: true } }).sort(path, order).limit(limit).toArray();
+        const data = await this.Collection.find({ [path]: { $exists: true } }).sort(path, order).limit(limit).toArray();
 
         return data;
     }
@@ -53,7 +53,7 @@ class Collection {
      * @returns {mongodb.UpdateWriteOpResult}
      */
     async UpdateSet(path, value) {
-        return await this.collection.updateMany({ [path]: { $exists: true } }, { $set: { [path]: value } });
+        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $set: { [path]: value } });
     }
 
     /**
@@ -63,7 +63,7 @@ class Collection {
      * @returns {mongodb.UpdateWriteOpResult}
      */
     async UpdateAdd(path, value) {
-        return await this.collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: Math.abs(value) } });
+        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: Math.abs(value) } });
     }
     /**
      * 
@@ -72,7 +72,7 @@ class Collection {
      * @returns {mongodb.UpdateWriteOpResult}
      */
     async UpdateSub(path, value) {
-        return await this.collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: -Math.abs(value) } });
+        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: -Math.abs(value) } });
     }
 
     /**
@@ -82,7 +82,7 @@ class Collection {
      * @returns @returns {mongodb.UpdateWriteOpResult}
      */
     async UpdatePush(path, value) {
-        return await this.collection.updateMany({ [path]: { $exists: true } }, { $push: { [path]: value } });
+        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $push: { [path]: value } });
     }
 
     /**
@@ -92,7 +92,7 @@ class Collection {
      * @returns @returns {mongodb.UpdateWriteOpResult}
      */
     async UpdatePull(path, value) {
-        return await this.collection.updateMany({ [path]: { $exists: true } }, { $pull: { [path]: value } });
+        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $pull: { [path]: value } });
     }
 }
 
