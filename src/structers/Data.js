@@ -25,7 +25,7 @@ class Data {
      * Assign to the specified path.
      * @param {String} path
      * @param {any} value Value to  be assigned.
-     * @returns any 
+     * @return {any} 
      */
     async set(path, value) {
         path = PathFormat(path);
@@ -37,7 +37,7 @@ class Data {
     /**
      * Deletes the specified path.
      * @param {String} path  
-     * @returns Promise<void>
+     * @return {Promise<void>}
      */
     async delete(path) {
         path = PathFormat(path);
@@ -49,6 +49,7 @@ class Data {
     /**
      * Returns the value/object at the specified path.
      * @param {String} path  
+     * @return {any}
      */
     async get(path) {
         path = PathFormat(path);
@@ -66,7 +67,7 @@ class Data {
      * Sorts the array/values ​​in path.
      * @param {String} path  
      * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
-     * @returns 
+     * @return {Promise<any[]>} 
      */
     async sort(path, orderType) {
         path = PathFormat(path);
@@ -100,7 +101,7 @@ class Data {
      * Do mathematical addition to specified path.
      * @param {String} path
      * @param {Number} value
-     * @returns {any}
+     * @return {any}
      */
     async add(path, value) {
         path = PathFormat(path);
@@ -120,7 +121,7 @@ class Data {
      * Do mathematical subtraction to specified path.
      * @param {String} path
      * @param {Number} value
-     * @returns {any}
+     * @return {any}
      */
     async subtract(path, value) {
         path = PathFormat(path);
@@ -139,7 +140,7 @@ class Data {
     /**
      * Check if Field exists to specified path.
      * @param {String} path
-     * @returns {Promise<Boolean>}
+     * @return {Promise<Boolean>}
      */
     async has(path) {
         path = PathFormat(path);
@@ -156,7 +157,7 @@ class Data {
      * Push to value an array to specified path.
      * @param {String} path
      * @param {any} value
-     * @returns any
+     * @return {any}
      */
     async push(path, value) {
         path = PathFormat(path);
@@ -169,7 +170,7 @@ class Data {
      * Push to multiple values an array to specified path.
      * @param {String} path
      * @param {any[]} values 
-     * @returns any
+     * @return any
      */
     async pushRange(path, values) {
         path = PathFormat(path);
@@ -182,7 +183,7 @@ class Data {
      * Extract element from Array to specified path.
      * @param {String} path
      * @param {any} value 
-     * @returns any
+     * @return any
      */
     async pull(path, value) {
         path = PathFormat(path);
@@ -194,7 +195,7 @@ class Data {
      * Extract all elements from Array to specified path.
      * @param {String} path
      * @param {any} value 
-     * @returns any
+     * @return {any}
      */
     async pullAll(path, value) {
         path = PathFormat(path);

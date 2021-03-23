@@ -19,7 +19,7 @@ class Collection {
     /**
      * If data does not exists, creates data then returns the data. Otherwise just returns data.
      * @param {String} key
-     * @returns {Data} 
+     * @return {Data} 
      */
     data(key) {
         return new Data(key, this.Collection);
@@ -30,7 +30,7 @@ class Collection {
      * @param {String} path It determines the field where the sorting will be done.
      * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
      * @param {number} limit It determines the data limit to be received.
-     * @returns {Array<any>}
+     * @return {Array<any>}
      */
     async sort(path, orderType, limit = 0) {
         path = FormatTool(path);
@@ -45,7 +45,7 @@ class Collection {
      * In all data, the value is assigned to the specified path.
      * @param {String} path
      * @param {any} value
-     * @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async set(path, value) {
         path = FormatTool(path);
@@ -56,7 +56,7 @@ class Collection {
     /**
      * Removes a field from all data in the collection.
      * @param {String} path
-     * @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async delete(path) {
         path = FormatTool(path);
@@ -68,7 +68,7 @@ class Collection {
      * Perform mathematical addition in the specified path in all data.
      * @param {String} path
      * @param {Number} value
-     * @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async add(path, value) {
         path = FormatTool(path);
@@ -79,7 +79,7 @@ class Collection {
      * Perform mathematical subtraction in the specified path in all data.
      * @param {String} path
      * @param {Number} value
-     * @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async subtract(path, value) {
         path = FormatTool(path);
@@ -91,7 +91,7 @@ class Collection {
      * Push value to array in specified path in all data.
      * @param {String} path
      * @param {any} value
-     * @returns @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async push(path, value) {
         path = FormatTool(path);
@@ -103,7 +103,7 @@ class Collection {
      * Values ​​in the specified array are added to all data in the collection in the specified path.
      * @param {String} path
      * @param {any[]} values
-     * @returns @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async pushRange(path, values) {
         path = FormatTool(path);
@@ -115,7 +115,7 @@ class Collection {
      * Pull the value from the array in the specified path in all data.
      * @param {String} path
      * @param {any} value
-     * @returns @returns {mongodb.UpdateWriteOpResult}
+     * @return {mongodb.UpdateWriteOpResult}
      */
     async pull(path, value) {
         path = FormatTool(path);

@@ -28,7 +28,7 @@ class Database {
     /**
      * If collection does not exists, creates collection then returns the collection. Otherwise just returns collection.
      * @param {String} collectionName 
-     * @returns {Collection}
+     * @return {Collection}
      */
     collection(collectionName) {
         let dbCollection = this.Db.collection(collectionName);
@@ -41,7 +41,7 @@ class Database {
     /**
      * Drops the Database Collection.
      * @param {String} collectionName 
-     * @returns 
+     * @return {Promise<void>} 
      */
     async dropCollection(collectionName) {
         let flag = await this.Db.dropCollection(collectionName);
