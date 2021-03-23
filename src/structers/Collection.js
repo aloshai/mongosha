@@ -100,6 +100,18 @@ class Collection {
     }
 
     /**
+     * Values ​​in the specified array are added to all data in the collection in the specified path.
+     * @param {String} path
+     * @param {any[]} values
+     * @returns @returns {mongodb.UpdateWriteOpResult}
+     */
+    async pushRange(path, values) {
+        path = FormatTool(path);
+
+        return await this.Collection.updateMany({}, { $push: { [path]: { $each: values } } });
+    }
+
+    /**
      * Pull the value from the array in the specified path in all data.
      * @param {String} path
      * @param {any} value
