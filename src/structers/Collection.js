@@ -50,7 +50,7 @@ class Collection {
     async set(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $set: { [path]: value } });
+        return await this.Collection.updateMany({}, { $set: { [path]: value } });
     }
 
     /**
@@ -62,7 +62,7 @@ class Collection {
     async add(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: Math.abs(value) } });
+        return await this.Collection.updateMany({}, { $inc: { [path]: Math.abs(value) } });
     }
     /**
      * Perform mathematical subtraction in the specified path in all data.
@@ -73,7 +73,7 @@ class Collection {
     async subtract(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: -Math.abs(value) } });
+        return await this.Collection.updateMany({}, { $inc: { [path]: -Math.abs(value) } });
     }
 
     /**
@@ -85,7 +85,7 @@ class Collection {
     async push(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $push: { [path]: value } });
+        return await this.Collection.updateMany({}, { $push: { [path]: value } });
     }
 
     /**
@@ -97,7 +97,7 @@ class Collection {
     async pull(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({ [path]: { $exists: true } }, { $pull: { [path]: value } });
+        return await this.Collection.updateMany({}, { $pull: { [path]: value } });
     }
 }
 
