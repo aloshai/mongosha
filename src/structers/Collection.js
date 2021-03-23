@@ -54,6 +54,17 @@ class Collection {
     }
 
     /**
+     * Removes a field from all data in the collection.
+     * @param {String} path
+     * @returns {mongodb.UpdateWriteOpResult}
+     */
+    async delete(path) {
+        path = FormatTool(path);
+
+        return await this.Collection.updateMany({}, { $unset: { [path]: "" } });
+    }
+
+    /**
      * Perform mathematical addition in the specified path in all data.
      * @param {String} path
      * @param {Number} value
