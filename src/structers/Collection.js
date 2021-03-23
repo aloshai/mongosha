@@ -17,7 +17,7 @@ class Collection {
     }
 
     /**
-     * 
+     * If data does not exists, creates data then returns the data. Otherwise just returns data.
      * @param {String} key
      * @returns {Data} 
      */
@@ -96,7 +96,7 @@ class Collection {
      */
     async pull(path, value) {
         path = FormatTool(path);
-        
+
         return await this.Collection.updateMany({ [path]: { $exists: true } }, { $pull: { [path]: value } });
     }
 }

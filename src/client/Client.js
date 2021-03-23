@@ -15,7 +15,7 @@ class Client {
     }
 
     /**
-     * Creates a database. (If the database has already been created, it won't rebuild)
+     * If database does not exists, creates database then returns the database. Otherwise just returns database.
      * @param {String} databaseName
      * @returns {Database} 
      */

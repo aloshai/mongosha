@@ -26,7 +26,7 @@ class Database {
     }
 
     /**
-     * Creates a collection. (If the collection has already been created, it won't rebuild)
+     * If collection does not exists, creates collection then returns the collection. Otherwise just returns collection.
      * @param {String} collectionName 
      * @returns {Collection}
      */
