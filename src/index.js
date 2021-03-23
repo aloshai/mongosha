@@ -10,7 +10,7 @@ class Mongosha {
      * Creates a new client and connects to MongoDB. (Connects to socket)
      * @param {String} url 
      * @param {mongodb.MongoClientOptions} options 
-     * @returns {Client}
+     * @returns {Promise<Client>}
      */
     static connect = async function (url, options = undefined) {
         let mongoClient = await mongodb.connect(url, options);
