@@ -6,7 +6,7 @@ class Collection {
      * @type {mongodb.Collection}
      */
     collection;
-    
+
     /**
      * @param {mongodb.Collection} client 
      */
@@ -35,6 +35,35 @@ class Collection {
         const data = await this.collection.find({ [path]: { $exists: true } }).sort(path, order).limit(limit).toArray();
 
         return data;
+    }
+
+    /**
+     * 
+     * @param {String} path 
+     * @param {any} value 
+     * @returns
+     */
+    async updateSet(path, value) {
+        return await this.collection.updateMany({ [path]: { $exists: true } }, { $set: { [path]: value } });
+    }
+
+    /**
+     * 
+     * @param {String} path 
+     * @param {Number} value 
+     * @returns
+     */
+    async updateAdd(path, value) {
+        return await this.collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: Math.abs(value) } });
+    }
+    /**
+     * 
+     * @param {String} path 
+     * @param {Number} value 
+     * @returns
+     */
+    async updateSub(path, value) {
+        return await this.collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: -Math.abs(value) } });
     }
 }
 
