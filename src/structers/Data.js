@@ -33,6 +33,19 @@ class Data {
         await this.#collection.updateOne({ key: this.#key }, { $set: { [path]: value } }, { upsert: true });
         return value;
     }
+
+    /**
+     * 
+     * @param {String} path 
+     * @returns Promise<void>
+     */
+    async delete(path) {
+        path = PathFormat(path);
+
+        await this.#collection.updateOne({ key: this.#key }, {$unset: { [path]: "" }});
+        return;
+    }
+
     /**
      * 
      * @param {String} path 
@@ -137,8 +150,19 @@ class Data {
         path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $push: { [path]: value } }, { upsert: true });
+        return value;
+    }
 
-        console.log(path);
+    /**
+     * 
+     * @param {String} path 
+     * @param {any[]} values 
+     * @returns any
+     */
+    async pushRange(path, values) {
+        path = PathFormat(path);
+
+        await this.#collection.updateOne({ key: this.#key }, { $push: { [path]: { $each: values } } }, { upsert: true });
         return value;
     }
 
