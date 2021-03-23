@@ -109,7 +109,8 @@ class Data {
             projection: {
                 "result": `$${path}`
             },
-            upsert: true
+            upsert: true,
+            new: true
         });
 
         return data?.result;
@@ -128,7 +129,8 @@ class Data {
             projection: {
                 "result": `$${path}`
             },
-            upsert: true
+            upsert: true,
+            new: true
         });
 
         return data?.result;
@@ -137,7 +139,7 @@ class Data {
     /**
      * Check if Field exists to specified path.
      * @param {String} path
-     * @returns {Boolean}
+     * @returns {Promise<Boolean>}
      */
     async has(path) {
         path = PathFormat(path);
