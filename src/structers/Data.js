@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const PathFormat = require("../tools/FormatTool");
+const PathFormat = require("../tools/FormatTool.js");
 
 class Data {
     /**

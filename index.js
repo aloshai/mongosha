@@ -1,3 +1,3 @@
-const mongosha = require("./src/index");
+const mongosha = require("./src/index.js");
 
 module.exports = mongosha;

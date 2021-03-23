@@ -1,7 +1,7 @@
 const mongodb = require("mongodb");
-const { Data } = require("./Data");
+const { Data } = require("./Data.js");
 
-const FormatTool = require("../tools/FormatTool");
+const FormatTool = require("../tools/FormatTool.js");
 
 class Collection {
     /**

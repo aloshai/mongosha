@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const { Collection } = require("./Collection");
+const { Collection } = require("./Collection.js");
 
 class Database {
 

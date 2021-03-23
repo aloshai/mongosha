@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const { Database } = require("../structers/Database");
+const { Database } = require("../structers/Database.js");
 
 class Client {
     /**
