@@ -22,9 +22,9 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {any} value
+     * Assign to the specified path.
+     * @param {String} path
+     * @param {any} value Value to  be assigned.
      * @returns any 
      */
     async set(path, value) {
@@ -35,8 +35,8 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Deletes the specified path.
+     * @param {String} path  
      * @returns Promise<void>
      */
     async delete(path) {
@@ -47,8 +47,8 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Returns the value/object at the specified path.
+     * @param {String} path  
      */
     async get(path) {
         path = PathFormat(path);
@@ -62,10 +62,17 @@ class Data {
         return data?.result;
     }
 
+    /**
+     * Sorts the array/values ​​in path.
+     * @param {String} path  
+     * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
+     * @returns 
+     */
     async sort(path, orderType) {
         path = PathFormat(path);
 
-        let pipelines = [
+        const order = orderType == "DESC" ? -1 : 1;
+        const pipelines = [
             {
                 '$match': {
                     'key': this.#key
@@ -76,7 +83,7 @@ class Data {
                 }
             }, {
                 '$sort': {
-                    [`${path}`]: orderType
+                    [`${path}`]: order
                 }
             }, {
                 '$project': {
@@ -90,9 +97,9 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {Number} value 
+     * Do mathematical addition to specified path.
+     * @param {String} path
+     * @param {Number} value
      * @returns {any}
      */
     async add(path, value) {
@@ -109,12 +116,12 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {Number} value 
+     * Do mathematical subtraction to specified path.
+     * @param {String} path
+     * @param {Number} value
      * @returns {any}
      */
-    async sub(path, value) {
+    async subtract(path, value) {
         path = PathFormat(path);
 
         const data = await this.#collection.findOneAndUpdate({ key: this.#key }, { $inc: { [path]: -Math.abs(value) } }, {
@@ -128,22 +135,25 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Check if Field exists to specified path.
+     * @param {String} path
      * @returns {Boolean}
      */
     async has(path) {
         path = PathFormat(path);
 
-        const count = await this.#collection.find({ key: this.#key, [path]: { $exists: true } }).limit(1).count();
-
-        return count >= 1 ? true : false;
+        const data = await this.#collection.findOne({ key: this.#key, [path]: { $exists: true } }, {
+            projection: {
+                "_id": 1
+            }
+        });
+        return data;
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {any} value 
+     * Push to value an array to specified path.
+     * @param {String} path
+     * @param {any} value
      * @returns any
      */
     async push(path, value) {
@@ -154,8 +164,8 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Push to multiple values an array to specified path.
+     * @param {String} path
      * @param {any[]} values 
      * @returns any
      */
@@ -167,8 +177,8 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Extract element from Array to specified path.
+     * @param {String} path
      * @param {any} value 
      * @returns any
      */
@@ -179,8 +189,8 @@ class Data {
     }
 
     /**
-     * 
-     * @param {String} path 
+     * Extract all elements from Array to specified path.
+     * @param {String} path
      * @param {any} value 
      * @returns any
      */

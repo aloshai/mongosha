@@ -26,10 +26,10 @@ class Collection {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {("DESC"|"ASC")} orderType
-     * @param {number} limit
+     * Sorts all data by the value in the specified path.
+     * @param {String} path It determines the field where the sorting will be done.
+     * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
+     * @param {number} limit It determines the data limit to be received.
      * @returns {Array<any>}
      */
     async sort(path, orderType, limit = 0) {
@@ -42,9 +42,9 @@ class Collection {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {any} value 
+     * In all data, the value is assigned to the specified path.
+     * @param {String} path
+     * @param {any} value
      * @returns {mongodb.UpdateWriteOpResult}
      */
     async set(path, value) {
@@ -54,9 +54,9 @@ class Collection {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {Number} value 
+     * Perform mathematical addition in the specified path in all data.
+     * @param {String} path
+     * @param {Number} value
      * @returns {mongodb.UpdateWriteOpResult}
      */
     async add(path, value) {
@@ -65,21 +65,21 @@ class Collection {
         return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: Math.abs(value) } });
     }
     /**
-     * 
-     * @param {String} path 
-     * @param {Number} value 
+     * Perform mathematical subtraction in the specified path in all data.
+     * @param {String} path
+     * @param {Number} value
      * @returns {mongodb.UpdateWriteOpResult}
      */
-    async sub(path, value) {
+    async subtract(path, value) {
         path = FormatTool(path);
 
         return await this.Collection.updateMany({ [path]: { $exists: true } }, { $inc: { [path]: -Math.abs(value) } });
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {any} value 
+     * Push value to array in specified path in all data.
+     * @param {String} path
+     * @param {any} value
      * @returns @returns {mongodb.UpdateWriteOpResult}
      */
     async push(path, value) {
@@ -89,9 +89,9 @@ class Collection {
     }
 
     /**
-     * 
-     * @param {String} path 
-     * @param {any} value 
+     * Pull the value from the array in the specified path in all data.
+     * @param {String} path
+     * @param {any} value
      * @returns @returns {mongodb.UpdateWriteOpResult}
      */
     async pull(path, value) {
