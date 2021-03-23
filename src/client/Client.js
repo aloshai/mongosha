@@ -5,27 +5,31 @@ class Client {
     /**
      * @type {mongodb.MongoClient}
      */
-    client;
+    Client;
 
     /**
      * @param {MongoClient} client 
      */
     constructor(client) {
-        this.client = client;
+        this.Client = client;
     }
 
     /**
-     * 
+     * Creates a database. (If the database has already been created, it won't rebuild)
      * @param {String} databaseName
      * @returns {Database} 
      */
     database(databaseName) {
-        let database = new Database(this.client, databaseName);
+        let database = new Database(this.Client, databaseName);
         return database;
     }
-
+    
+    /**
+     * Drops the database.
+     * @param {String} databaseName 
+     */
     async dropDatabase(databaseName) {
-        await this.client.db(databaseName).dropDatabase();
+        await this.Client.db(databaseName).dropDatabase();
     }
 }
 

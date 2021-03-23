@@ -4,11 +4,13 @@ const Collection = require("./Collection");
 class Database {
 
     /**
+     * It has Db feature in MongoDB. Most operations are done with this area.
      * @type {mongodb.Db}
      */
     Db;
 
     /**
+     * It carries the Client connected to MongoDB.
      * @type {mongodb.MongoClient}
      */
     Client;
@@ -24,6 +26,7 @@ class Database {
     }
 
     /**
+     * Creates a collection. (If the collection has already been created, it won't rebuild)
      * @param {String} collectionName 
      * @returns {Collection}
      */
@@ -35,6 +38,11 @@ class Database {
         return collection;
     }
 
+    /**
+     * Drops the Database Collection.
+     * @param {String} collectionName 
+     * @returns 
+     */
     async dropCollection(collectionName) {
         let flag = await this.Db.dropCollection(collectionName);
 

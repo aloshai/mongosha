@@ -3,6 +3,7 @@ const Client = require('./client/Client');
 
 class Mongosha {
     /**
+     * Creates a new client and connects to MongoDB. (Connects to socket)
      * @param {String} url 
      * @param {mongodb.MongoClientOptions} options 
      * @returns {Client}
