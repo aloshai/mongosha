@@ -7,9 +7,9 @@ Download the package `npm i @aloshai/mongosha` or `yarn install @aloshai/mongosh
 ## Quickstart
 
 ```js
-const mongosha = require("@aloshai/mongosha");
+const { Mongosha } = require("@aloshai/mongosha");
 
-const client = mongosha.connect("MONGODB_CONNECTION_STRING");
+const client = Mongosha.connect("MONGODB_CONNECTION_STRING");
 const db = client.database("example_database");
 
 const collection = db.collection("users");
@@ -58,7 +58,7 @@ Here are our APIs.
 Mongosha is a model. Use Mongosha like this.
 
 ```js
-var Mongosha = require("@aloshai/mongosha");
+var { Mongosha } = require("@aloshai/mongosha");
 
 const options = {
     useUnifiedTopology: true
