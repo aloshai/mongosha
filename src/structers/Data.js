@@ -42,7 +42,7 @@ class Data {
     async delete(path) {
         path = PathFormat(path);
 
-        await this.#collection.updateOne({ key: this.#key }, {$unset: { [path]: "" }});
+        await this.#collection.updateOne({ key: this.#key }, { $unset: { [path]: "" } });
         return;
     }
 
@@ -50,7 +50,7 @@ class Data {
      * 
      * @param {String} path 
      */
-    async get(path) { // TODO: defaultValue
+    async get(path) {
         path = PathFormat(path);
 
         const data = await this.#collection.findOne({ key: this.#key }, {
@@ -137,7 +137,7 @@ class Data {
 
         const count = await this.#collection.find({ key: this.#key, [path]: { $exists: true } }).limit(1).count();
 
-        return count == 1 ? true : false;
+        return count >= 1 ? true : false;
     }
 
     /**
