@@ -25,7 +25,7 @@ data.delete("mail"); // => Promise<void>
 
 // addition and subtraction 
 data.add("wallet", 10); // => 1510
-data.sub("wallet", 1000); // => 510
+data.subtract("wallet", 1000); // => 510
 
 // array operations
 data.push("inventory", "Sword"); // => "Sword"
