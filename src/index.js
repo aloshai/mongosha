@@ -1,6 +1,10 @@
 const mongodb = require('mongodb');
 const Client = require('./client/Client');
 
+const { Collection } = require("./structers/Collection");
+const { Data } = require("./structers/Data");
+const { Database } = require("./structers/Database");
+
 class Mongosha {
     /**
      * Creates a new client and connects to MongoDB. (Connects to socket)
@@ -16,4 +20,4 @@ class Mongosha {
     }
 }
 
-module.exports = Mongosha;
+module.exports = { Mongosha, Collection, Data, Database, Client };
