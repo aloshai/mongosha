@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const Collection = require("./Collection");
+const { Collection } = require("./Collection");
 
 class Database {
 
@@ -50,4 +50,4 @@ class Database {
     }
 }
 
-module.exports = Database;
+module.exports = { Database };

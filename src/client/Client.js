@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const Database = require("../structers/Database");
+const { Database } = require("../structers/Database");
 
 class Client {
     /**
@@ -34,4 +34,4 @@ class Client {
     }
 }
 
-module.exports = Client;
+module.exports = { Client };

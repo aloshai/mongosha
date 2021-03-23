@@ -1,5 +1,5 @@
 const mongodb = require("mongodb");
-const Data = require("./Data");
+const { Data } = require("./Data");
 
 const FormatTool = require("../tools/FormatTool");
 
@@ -124,4 +124,4 @@ class Collection {
     }
 }
 
-module.exports = Collection;
+module.exports = { Collection };

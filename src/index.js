@@ -1,9 +1,9 @@
 const mongodb = require('mongodb');
-const Client = require('./client/Client');
+const { Client } = require('./client/Client');
 
-const Collection = require("./structers/Collection");
-const Data = require("./structers/Data");
-const Database = require("./structers/Database");
+const { Collection } = require("./structers/Collection");
+const { Data } = require("./structers/Data");
+const { Database } = require("./structers/Database");
 
 class Mongosha {
     /**
