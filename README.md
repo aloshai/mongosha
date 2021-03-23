@@ -57,15 +57,11 @@ const db = DatabaseManager.getDatabase("General");
 * `.createDatabase(databaseName, collectionName?)`: Creates and saves a database.
 
 ## QuickStart
-You can understand how it works by reading the examples below.
-
-### Example #1
-You will see how we manage it by creating a database class and return values.
 
 ```js
-const { Manager } = require("@aloshai/mongosha");
+const mongosha = require("@aloshai/mongosha");
 
-const client = Manager.connect("MONGODB_CONNECTION_STRING");
+const client = mongosha.connect("MONGODB_CONNECTION_STRING");
 const db = client.database("example_database");
 
 const collection = db.collection("users");

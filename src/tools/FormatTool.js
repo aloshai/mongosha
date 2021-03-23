@@ -1,5 +1,5 @@
-function formatPath(str) {
+function FormatPath(str) {
     return "data." + str;
 }
 
-module.exports = formatPath;
+module.exports = FormatPath;
