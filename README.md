@@ -2,14 +2,14 @@
 Mongosha is a simple to use database manager. It allows you to do your transactions in a very short way and all you have to do is specify path!
 
 ## Installation
-Download the package `npm i @aloshai/mongosha` or `yarn install @aloshai/mongosha` 
+Download the package `npm i mongosha` or `yarn install mongosha` 
 
 ## Quickstart
 
 ```js
-const { Mongosha } = require("@aloshai/mongosha");
+const { Mongosha } = require("mongosha");
 
-const client = Mongosha.connect("MONGODB_CONNECTION_STRING");
+const client = await Mongosha.connect("MONGODB_CONNECTION_STRING");
 const db = client.database("example_database");
 
 const collection = db.collection("users");
@@ -58,7 +58,7 @@ Here are our APIs.
 Mongosha is a model. Use Mongosha like this.
 
 ```js
-var { Mongosha } = require("@aloshai/mongosha");
+var { Mongosha } = require("mongosha");
 
 const options = {
     useUnifiedTopology: true
