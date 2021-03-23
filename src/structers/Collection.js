@@ -28,7 +28,7 @@ class Collection {
      * @param {String} key
      * @returns {Data} 
      */
-    createData(key) {
+    CreateData(key) {
         return new Data(key, this.collection);
     }
 
