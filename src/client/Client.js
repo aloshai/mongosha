@@ -20,7 +20,7 @@ class Client {
      * @return {Database} 
      */
     database(databaseName) {
-        let database = new Database(this.Client, databaseName);
+        const database = new Database(this.Client, databaseName);
         return database;
     }
 

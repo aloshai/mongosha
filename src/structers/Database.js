@@ -31,9 +31,9 @@ class Database {
      * @return {Collection}
      */
     collection(collectionName) {
-        let dbCollection = this.Db.collection(collectionName);
+        const dbCollection = this.Db.collection(collectionName);
         dbCollection.createIndex({ key: 1 });
-        let collection = new Collection(dbCollection);
+        const collection = new Collection(dbCollection);
 
         return collection;
     }
@@ -44,8 +44,8 @@ class Database {
      * @return {Promise<void>} 
      */
     async dropCollection(collectionName) {
-        let flag = await this.Db.dropCollection(collectionName);
-
+        const flag = await this.Db.dropCollection(collectionName);
+        
         return flag;
     }
 }
