@@ -50,7 +50,7 @@ class Collection {
     async set(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $set: { [path]: value } });
+        return await this.Collection.updateMany({}, { $set: { [path]: value } }, { upsert: true });
     }
 
     /**
@@ -61,7 +61,7 @@ class Collection {
     async delete(path) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $unset: { [path]: "" } });
+        return await this.Collection.updateMany({}, { $unset: { [path]: "" } }, { upsert: true });
     }
 
     /**
@@ -73,7 +73,7 @@ class Collection {
     async add(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $inc: { [path]: Math.abs(value) } });
+        return await this.Collection.updateMany({}, { $inc: { [path]: Math.abs(value) } }, { upsert: true });
     }
     /**
      * Perform mathematical subtraction in the specified path in all data.
@@ -84,7 +84,7 @@ class Collection {
     async subtract(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $inc: { [path]: -Math.abs(value) } });
+        return await this.Collection.updateMany({}, { $inc: { [path]: -Math.abs(value) } }, { upsert: true });
     }
 
     /**
@@ -96,7 +96,7 @@ class Collection {
     async push(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $push: { [path]: value } });
+        return await this.Collection.updateMany({}, { $push: { [path]: value } }, { upsert: true });
     }
 
     /**
@@ -108,7 +108,7 @@ class Collection {
     async pushRange(path, values) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $push: { [path]: { $each: values } } });
+        return await this.Collection.updateMany({}, { $push: { [path]: { $each: values } } }, { upsert: true });
     }
 
     /**
@@ -120,7 +120,7 @@ class Collection {
     async pull(path, value) {
         path = FormatTool(path);
 
-        return await this.Collection.updateMany({}, { $pull: { [path]: value } });
+        return await this.Collection.updateMany({}, { $pull: { [path]: value } }, { upsert: true });
     }
 }
 
