@@ -1,7 +1,7 @@
 const mongodb = require("mongodb");
 const { Data } = require("./Data.js");
 
-const FormatTool = require("../tools/FormatTool.js");
+const PathFormat = require("../tools/FormatTool.js");
 
 class Collection {
     /**
@@ -33,7 +33,7 @@ class Collection {
      * @return {Array<any>}
      */
     async sort(path, orderType, limit = 0) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         const order = orderType == "DESC" ? -1 : 1;
         const data = await this.Collection.find({ [path]: { $exists: true } }).sort(path, order).limit(limit).toArray();
@@ -48,7 +48,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async set(path, value) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $set: { [path]: value } }, { upsert: true });
     }
@@ -59,7 +59,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async delete(path) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $unset: { [path]: "" } }, { upsert: true });
     }
@@ -71,7 +71,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async add(path, value) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $inc: { [path]: Math.abs(value) } }, { upsert: true });
     }
@@ -82,7 +82,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async subtract(path, value) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $inc: { [path]: -Math.abs(value) } }, { upsert: true });
     }
@@ -94,7 +94,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async push(path, value) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $push: { [path]: value } }, { upsert: true });
     }
@@ -106,7 +106,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async pushRange(path, values) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $push: { [path]: { $each: values } } }, { upsert: true });
     }
@@ -118,7 +118,7 @@ class Collection {
      * @return {mongodb.UpdateWriteOpResult}
      */
     async pull(path, value) {
-        path = FormatTool(path);
+        path = PathFormat(path);
 
         return await this.Collection.updateMany({}, { $pull: { [path]: value } }, { upsert: true });
     }
