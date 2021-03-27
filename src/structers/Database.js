@@ -45,7 +45,7 @@ class Database {
      */
     async dropCollection(collectionName) {
         const flag = await this.Db.dropCollection(collectionName);
-        
+
         return flag;
     }
 }
