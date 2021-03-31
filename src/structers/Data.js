@@ -43,7 +43,6 @@ class Data {
         path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $unset: { [path]: "" } });
-        return;
     }
 
     /**
@@ -60,7 +59,7 @@ class Data {
             }
         });
 
-        return data?.result;
+        return data ? data.result : undefined;
     }
 
     /**
@@ -114,7 +113,7 @@ class Data {
             new: true
         });
 
-        return data?.result;
+        return data ? data.result : undefined;
     }
 
     /**
@@ -134,7 +133,7 @@ class Data {
             new: true
         });
 
-        return data?.result;
+        return data ? data.result : undefined;
     }
 
     /**
@@ -150,40 +149,38 @@ class Data {
                 "_id": 1
             }
         });
-        return data;
+        return data ? true : false;
     }
 
     /**
      * Push to value an array to specified path.
      * @param {String} path
      * @param {any} value
-     * @return {any}
+     * @return {Promise<void>}
      */
     async push(path, value) {
         path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $push: { [path]: value } }, { upsert: true });
-        return value;
     }
 
     /**
      * Push to multiple values an array to specified path.
      * @param {String} path
      * @param {any[]} values 
-     * @return any
+     * @return {Promise<void>}
      */
     async pushRange(path, values) {
         path = PathFormat(path);
 
         await this.#collection.updateOne({ key: this.#key }, { $push: { [path]: { $each: values } } }, { upsert: true });
-        return value;
     }
 
     /**
      * Extract element from Array to specified path.
      * @param {String} path
      * @param {any} value 
-     * @return any
+     * @return {Promise<void>}
      */
     async pull(path, value) {
         path = PathFormat(path);
@@ -195,7 +192,7 @@ class Data {
      * Extract all elements from Array to specified path.
      * @param {String} path
      * @param {any} value 
-     * @return {any}
+     * @return {Promise<void>}
      */
     async pullAll(path, value) {
         path = PathFormat(path);
