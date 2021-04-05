@@ -66,9 +66,10 @@ class Data {
      * Sorts the array/values ​​in path.
      * @param {String} path  
      * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
+     * @param {Number} limit determines how many elements will rotate. (Default: 0 this is mean of returns in array all elements)
      * @return {Promise<any[]>} 
      */
-    async sort(path, orderType) {
+    async sort(path, orderType, limit = 0) {
         path = PathFormat(path);
 
         const order = orderType == "DESC" ? -1 : 1;
@@ -89,6 +90,8 @@ class Data {
                 '$project': {
                     'element': `$${path}`
                 }
+            }, {
+                '$limit': limit
             }
         ];
 
