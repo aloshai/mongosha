@@ -2,7 +2,7 @@
 Mongosha is a simple to use database manager. It allows you to do your transactions in a very short way and all you have to do is specify path!
 
 ## Installation
-Download the package `npm i mongosha` or `yarn install mongosha` 
+Download the package `npm i mongosha` or `yarn add mongosha` 
 
 ## Quickstart
 
