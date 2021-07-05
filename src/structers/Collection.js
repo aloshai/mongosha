@@ -26,6 +26,15 @@ class Collection {
     }
 
     /**
+     * Drop the data in collection.
+     * @param {String} key
+     * @return {Data} 
+     */
+    async dropData(key) {
+        return this.Collection.deleteOne({ key: key });
+    }
+
+    /**
      * Sorts all data by the value in the specified path.
      * @param {String} path It determines the field where the sorting will be done.
      * @param {("DESC"|"ASC")} orderType Sorts the data in DESC (descending) or ASC (ascending).
